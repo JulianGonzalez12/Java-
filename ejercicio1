@@ -1,0 +1,39 @@
+
+package ejercicio1;
+
+import java.util.Scanner;
+
+/**
+ *
+ * @author Julian Gonzalez Medina 20232216752
+ */
+public class Ejercicio1 {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        Scanner scanner   = new Scanner(System.in);
+
+        System.out.print("Ingrese el número de computadoras a comprar: ");
+        int cantidadComputadoras = scanner.nextInt();
+
+        double  precioPorComputadora = 500; // Precio de cada computadora
+        double precioTotal = cantidadComputadoras *  precioPorComputadora;
+        double descuento = 0;
+
+        if (cantidadComputadoras < 5) {
+            descuento = 0.1 * precioTotal; // 10% de descuento
+        } else if (cantidadComputadoras < 10) {
+            descuento = 0.2 * precioTotal; // 20% de descuento
+        } else {
+            descuento = 0.4 * precioTotal; // 40% de descuento
+        }
+
+        double precioFinal = precioTotal - descuento;
+
+        System.out.println("Total a pagar: $" + precioFinal);
+        System.out.println("Descuento aplicado: $" + descuento);
+
+    }
+}
