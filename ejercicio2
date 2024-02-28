@@ -1,0 +1,37 @@
+[Uploading Ejpackage ejercicio2;
+
+import java.util.Scanner;
+
+/**
+ *
+ * @author Julian Gonzalez Medina 20232216752
+ */
+public class Ejercicio2 {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        Scanner  scanner = new Scanner(System.in);
+
+        System.out.print("Ingrese la cantidad de llantas a comprar: ");
+        int cantidadLlantas = scanner.nextInt();
+
+        double precioPorLlanta;
+
+        if (cantidadLlantas < 5) {
+            precioPorLlanta = 100; // Precio si se compran menos de 5 llantas
+        } else if (cantidadLlantas <= 10) {
+            precioPorLlanta = 75; // Precio si se compran de 5 a 10 llantas
+        } else {
+            precioPorLlanta = 50; // Precio si se compran más de 10 llantas
+        }
+
+        double precioTotal = cantidadLlantas * precioPorLlanta;
+
+        System.out.println("Precio por llanta: $" + precioPorLlanta);
+        System.out.println("Total a pagar por " + cantidadLlantas + " llantas: $" + precioTotal);
+
+    }
+}
+ercicio2.java…]()
