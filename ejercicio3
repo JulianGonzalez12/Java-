@@ -1,0 +1,56 @@
+[Uploading Ejercicipackage ejercicio3;
+
+import java.util.Scanner;
+
+/**
+ *
+ * @author Julian Gonzalez Medina 20232216752
+ */
+public class Ejercicio3 {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        Scanner  scanner = new Scanner(System.in);
+
+        // Solicitar el precio del aparato
+        System.out.print("Ingrese el precio del aparato: ");
+        double precioSinIVA = scanner.nextDouble();
+
+        // Verificar si el precio es igual o mayor a $500 para aplicar el descuento del 10%
+        double descuentoPorPrecio = 0;
+        if (precioSinIVA >= 500) {
+            descuentoPorPrecio = 0.1 * precioSinIVA;
+        }
+
+        // Solicitar la marca del aparato
+        System.out.print("Ingrese la marca del aparato: ");
+        String marca = scanner.next();
+
+        // Verificar si la marca es "NOSY" para aplicar el descuento adicional del 5%
+        double descuentoPorMarca = 0;
+        if (marca.equalsIgnoreCase("NOSY")) {
+            descuentoPorMarca = 0.05 * precioSinIVA;
+        }
+
+        // Calcular el total de descuentos
+        double totalDescuentos = descuentoPorPrecio + descuentoPorMarca;
+
+        // Calcular el precio con descuentos
+        double precioConDescuentos = precioSinIVA - totalDescuentos;
+
+        // Calcular el IVA
+        double iva = 0.19 * precioConDescuentos;
+
+        // Calcular el precio final con IVA incluido
+        double precioFinal = precioConDescuentos + iva;
+
+        // Mostrar el precio final
+        System.out.println("El cliente pagará $" + precioFinal + " con IVA incluido.");
+    }
+}
+    
+    
+
+o3.java…]()
