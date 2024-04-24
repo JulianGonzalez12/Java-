@@ -1,0 +1,92 @@
+package ejercicio7.pkg20;
+
+/**
+ *
+ * @author Julian Gonzalez Medina 20232216752
+ */
+class CargamentoFruta {
+    private String nombre;
+    private String procedencia;
+    private int kilos;
+    private double precioCoste;
+    private double precioVenta;
+    private double beneficio;
+
+    // Constructor
+    public CargamentoFruta(String nombre, String procedencia, int kilos, double precioCoste, double precioVenta) {
+        this.nombre = nombre;
+        this.procedencia = procedencia;
+        this.kilos = kilos;
+        this.precioCoste = precioCoste;
+        this.precioVenta = precioVenta;
+        this.beneficio = 0;
+    }
+
+    // Método para obtener la información del cargamento de fruta
+    public String obtenerInformacion() {
+        return "Fruta: " + nombre + ", Procedencia: " + procedencia + ", Kilos: " + kilos +
+                ", Precio Coste por Kilo: " + precioCoste + ", Precio Venta por Kilo: " + precioVenta;
+    }
+
+    // Método para rebajar el precio de venta
+    public void rebajarPrecioVenta(double rebaja) {
+        if (precioVenta - rebaja >= precioCoste) {
+            precioVenta -= rebaja;
+        } else {
+            System.out.println("Error: El precio de venta no puede ser menor que el precio de coste.");
+        }
+    }
+
+    // Método para vender una cantidad de kilos
+    public double vender(int kilosAVender) {
+        if (kilosAVender <= kilos) {
+            kilos -= kilosAVender;
+            double importeVenta = kilosAVender * precioVenta;
+            beneficio += importeVenta - (kilosAVender * precioCoste);
+            return importeVenta;
+        } else {
+            System.out.println("Error: No hay suficiente cantidad de fruta para vender.");
+            return 0;
+        }
+    }
+
+    // Método para verificar si dos cargamentos tienen la misma procedencia
+    public boolean mismaProcedencia(CargamentoFruta otroCargamento) {
+        return this.procedencia.equals(otroCargamento.procedencia);
+    }
+
+    // Método para obtener el beneficio total del almacén
+    public double obtenerBeneficioTotal() {
+        return beneficio;
+    }
+}
+
+public class PruebaCargamentoFruta {
+    public static void main(String[] args) {
+        // Crear tres cargamentos de fruta
+        CargamentoFruta cargamento1 = new CargamentoFruta("Manzana", "España", 100, 0.5, 1.0);
+        CargamentoFruta cargamento2 = new CargamentoFruta("Pera", "Francia", 150, 0.6, 1.2);
+        CargamentoFruta cargamento3 = new CargamentoFruta("Naranja", "Italia", 120, 0.4, 0.8);
+
+        // Mostrar información de los cargamentos
+        System.out.println("Información de los cargamentos:");
+        System.out.println("Cargamento 1: " + cargamento1.obtenerInformacion());
+        System.out.println("Cargamento 2: " + cargamento2.obtenerInformacion());
+        System.out.println("Cargamento 3: " + cargamento3.obtenerInformacion());
+
+        // Verificar si los dos primeros tienen la misma procedencia
+        System.out.println("\n¿Los dos primeros cargamentos tienen la misma procedencia?: " + cargamento1.mismaProcedencia(cargamento2));
+
+        // Rebajar el precio de venta del tercer cargamento
+        cargamento3.rebajarPrecioVenta(0.2);
+
+        // Vender una cantidad de kilos de cada cargamento
+        double importeVenta1 = cargamento1.vender(50);
+        double importeVenta2 = cargamento2.vender(100);
+        double importeVenta3 = cargamento3.vender(80);
+
+        // Mostrar el beneficio obtenido por el almacén
+        double beneficioTotal = cargamento1.obtenerBeneficioTotal() + cargamento2.obtenerBeneficioTotal() + cargamento3.obtenerBeneficioTotal();
+        System.out.println("\nBeneficio total obtenido por el almacén: " + beneficioTotal);
+    }
+}
