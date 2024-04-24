@@ -1,0 +1,61 @@
+package ejercicio7.pkg2;
+
+/**
+ *
+ * @author USUARIO
+ */
+class Moto {
+    private int velocidad;
+
+    // Constructor
+    public Moto() {
+        this.velocidad = 0; // Inicialmente la velocidad es 0
+    }
+
+    // Método para acelerar la moto
+    public void acelerar(int cantidad) {
+        velocidad += cantidad;
+        // Controlar que la velocidad no supere 150
+        if (velocidad > 150) {
+            velocidad = 150;
+        }
+    }
+
+    // Método para frenar la moto
+    public void frenar(int cantidad) {
+        velocidad -= cantidad;
+        // Controlar que la velocidad no sea negativa
+        if (velocidad < 0) {
+            velocidad = 0;
+        }
+    }
+
+    // Método para obtener la velocidad actual de la moto
+    public int obtenerVelocidad() {
+        return velocidad;
+    }
+}
+
+public class PruebaMoto {
+    public static void main(String[] args) {
+        // Crear una moto
+        Moto moto = new Moto();
+
+        // Acelerar la moto y mostrar la velocidad
+        moto.acelerar(100);
+        System.out.println("Velocidad después de acelerar: " + moto.obtenerVelocidad());
+
+        // Frenar la moto y mostrar la velocidad
+        moto.frenar(50);
+        System.out.println("Velocidad después de frenar: " + moto.obtenerVelocidad());
+
+        // Intentar acelerar más allá del límite
+        moto.acelerar(100); // Esto debería aumentar la velocidad a 150
+        System.out.println("Velocidad después de intentar acelerar más allá del límite: " + moto.obtenerVelocidad());
+
+        // Intentar frenar más allá de la velocidad actual
+        moto.frenar(200); // Esto debería disminuir la velocidad a 0
+        System.out.println("Velocidad después de intentar frenar más allá de la velocidad actual: " + moto.obtenerVelocidad());
+    }
+}
+
