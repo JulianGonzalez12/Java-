@@ -1,0 +1,160 @@
+package ejercicio7.pkg14;
+
+/**
+ *
+ * @author Julian GOnzalez Medina 20232216752
+ */
+class Coche {
+    private final String matricula;
+    private final String modelo;
+    private String marca;
+    private int añoMatriculacion;
+    private int categoria;
+    private boolean alquilado;
+    private double precio;
+
+    // Constructor
+    public Coche(String matricula, String modelo, String marca, int añoMatriculacion, int categoria, double precio) {
+        this.matricula = matricula;
+        this.modelo = modelo;
+        this.marca = marca;
+        this.añoMatriculacion = añoMatriculacion;
+        this.categoria = categoria;
+        this.alquilado = false;
+        this.precio = precio;
+    }
+
+    // Método para alquilar un vehículo
+    public double alquilar(int dias) {
+        if (alquilado) {
+            System.out.println("Error: El coche ya está alquilado.");
+            return 0;
+        }
+        alquilado = true;
+        double importe;
+        if (categoria == 1) {
+            if (dias <= 2) {
+                importe = 40 * dias;
+            } else {
+                importe = 30 * dias;
+            }
+        } else {
+            if (dias <= 2) {
+                importe = 60 * dias;
+            } else {
+                importe = 45 * dias;
+            }
+        }
+        return importe;
+    }
+
+    // Método para devolver un vehículo
+    public void devolver() {
+        if (!alquilado) {
+            System.out.println("Error: El coche no está alquilado.");
+            return;
+        }
+        alquilado = false;
+    }
+
+    // Método para saber si un vehículo está alquilado o no
+    public boolean estaAlquilado() {
+        return alquilado;
+    }
+
+    // Método para obtener el precio del coche
+    public double obtenerPrecio() {
+        return precio;
+    }
+
+    Object obtenerMatricula() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+}
+
+class Ejercicio7_14 {
+    private final Coche[] coches;
+
+    // Constructor
+    public Ejercicio7_14() {
+        // Inicializar el array de coches con 5 coches predefinidos
+        coches = new Coche[5];
+        coches[0] = new Coche("1111AAA", "Modelo1", "Marca1", 2018, 1, 50.0);
+        coches[1] = new Coche("2222BBB", "Modelo2", "Marca2", 2019, 2, 70.0);
+        coches[2] = new Coche("3333CCC", "Modelo3", "Marca3", 2020, 1, 60.0);
+        coches[3] = new Coche("4444DDD", "Modelo4", "Marca4", 2021, 2, 80.0);
+        coches[4] = new Coche("5555EEE", "Modelo5", "Marca5", 2022, 1, 55.0);
+    }
+
+    // Método para alquilar un coche
+    public double alquilarCoche(String matricula, int dias) {
+        for (Coche coche : coches) {
+            if (coche != null && coche.estaAlquilado() && coche.obtenerMatricula().equals(matricula)) {
+                return coche.alquilar(dias);
+            }
+        }
+        System.out.println("Error: Coche no encontrado o ya alquilado.");
+        return 0;
+    }
+
+    // Método para devolver un coche
+    public void devolverCoche(String matricula) {
+        for (Coche coche : coches) {
+            if (coche != null && coche.obtenerMatricula().equals(matricula)) {
+                coche.devolver();
+                return;
+            }
+        }
+        System.out.println("Error: Coche no encontrado.");
+    }
+
+    // Método para saber si un coche está alquilado o no
+    public boolean estaAlquilado(String matricula) {
+        for (Coche coche : coches) {
+            if (coche != null && coche.obtenerMatricula().equals(matricula)) {
+                return coche.estaAlquilado();
+            }
+        }
+        System.out.println("Error: Coche no encontrado.");
+        return false;
+    }
+
+    // Método para obtener el número de coches alquilados
+    public int numeroCochesAlquilados() {
+        int count = 0;
+        for (Coche coche : coches) {
+            if (coche != null && coche.estaAlquilado()) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    // Método para calcular las ganancias totales de todos los coches alquilados
+    public double gananciasTotales() {
+        double total = 0;
+        for (Coche coche : coches) {
+            if (coche != null && coche.estaAlquilado()) {
+                total += coche.obtenerPrecio();
+            }
+        }
+        return total;
+    }
+}
+
+public class PruebaEjercicio7_14 {
+    public static void main(String[] args) {
+        Ejercicio7_14 ejercicio = new Ejercicio7_14();
+
+        // Menú
+        System.out.println("MENU:");
+        System.out.println("1. Alquilar vehículo");
+        System.out.println("2. Devolver vehículo");
+        System.out.println("3. Verificar si un vehículo está alquilado");
+        System.out.println("4. Ver el número de vehículos alquilados");
+        System.out.println("5. Ver las ganancias totales");
+        System.out.println("0. Salir");
+
+        // Aquí puedes incluir la lógica para interactuar con el usuario y probar las operaciones.
+    }
+}
