@@ -1,0 +1,196 @@
+package ejercicio7.pkg21;
+
+/**
+ *
+ * @author Julian Gonzalez Medina 20232216752
+ */
+import java.util.Scanner;
+
+class PlazaGaraje {
+    private int planta;
+    private int numero;
+    private int metrosCuadrados;
+    private boolean alquilada;
+    private double precioAlquiler;
+
+    // Constructor
+    public PlazaGaraje(int planta, int numero, int metrosCuadrados) {
+        this.planta = planta;
+        this.numero = numero;
+        this.metrosCuadrados = metrosCuadrados;
+        this.alquilada = false;
+        calcularPrecioAlquiler();
+    }
+
+    // Método para calcular el precio de alquiler de la plaza
+    private void calcularPrecioAlquiler() {
+        precioAlquiler = 18.0;
+        switch (planta) {
+            case 1 -> precioAlquiler += 3.0;
+            case 2 -> precioAlquiler += 1.5;
+            default -> precioAlquiler += 1.0;
+        }
+
+        if (metrosCuadrados > 4) {
+            precioAlquiler += 1.5;
+        } else if (metrosCuadrados < 3) {
+            precioAlquiler -= 1.0;
+        }
+    }
+
+    // Método para alquilar la plaza
+    public void alquilarPlaza() {
+        alquilada = true;
+    }
+
+    // Método para liberar la plaza
+    public void liberarPlaza() {
+        alquilada = false;
+    }
+
+    // Método para obtener el precio de alquiler de la plaza
+    public double getPrecioAlquiler() {
+        return precioAlquiler;
+    }
+
+    // Método para verificar si la plaza está alquilada
+    public boolean estaAlquilada() {
+        return alquilada;
+    }
+
+    // Método para obtener la información de la plaza
+    public String obtenerInformacion() {
+        return "Planta: " + planta + ", Número: " + numero + ", Metros cuadrados: " + metrosCuadrados +
+                "m2, Precio alquiler: " + precioAlquiler + "€";
+    }
+
+    void recalcularPrecioAlquiler(double porcentaje) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+}
+
+public class AlquilerPlazasGaraje {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Crear un array de 40 plazas de garaje
+        PlazaGaraje[] plazas = new PlazaGaraje[40];
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 10; j++) {
+                int metrosCuadrados = (int) (Math.random() * 5) + 2; // Entre 2 y 6 metros cuadrados
+                plazas[i * 10 + j] = new PlazaGaraje(i + 1, j + 1, metrosCuadrados);
+            }
+        }
+
+        // Menú
+        int opcion;
+        do {
+            System.out.println("\nMENU:");
+            System.out.println("1. Alquilar plaza");
+            System.out.println("2. Mostrar precio de alquiler de una plaza");
+            System.out.println("3. Mostrar plazas libres");
+            System.out.println("4. Subir precio de una plaza");
+            System.out.println("5. Mostrar beneficios de la empresa");
+            System.out.println("0. Salir");
+            System.out.print("Seleccione una opción: ");
+            opcion = scanner.nextInt();
+
+            switch (opcion) {
+                case 1 -> alquilarPlaza(plazas, scanner);
+                case 2 -> mostrarPrecioAlquiler(plazas, scanner);
+                case 3 -> mostrarPlazasLibres(plazas);
+                case 4 -> subirPrecioPlaza(plazas, scanner);
+                case 5 -> mostrarBeneficiosEmpresa(plazas);
+                case 0 -> System.out.println("Saliendo del programa...");
+                default -> System.out.println("Opción no válida.");
+            }
+        } while (opcion != 0);
+    }
+
+    // Método para alquilar una plaza de garaje
+    private static void alquilarPlaza(PlazaGaraje[] plazas, Scanner scanner) {
+        System.out.print("Ingrese la planta de la plaza: ");
+        int planta = scanner.nextInt();
+        System.out.print("Ingrese el número de la plaza: ");
+        int numero = scanner.nextInt();
+
+        int indice = (planta - 1) * 10 + (numero - 1);
+        if (indice >= 0 && indice < 40) {
+            PlazaGaraje plaza = plazas[indice];
+            if (plaza.estaAlquilada()) {
+                System.out.println("La plaza ya está alquilada.");
+            } else {
+                plaza.alquilarPlaza();
+                System.out.println("La plaza ha sido alquilada correctamente.");
+            }
+        } else {
+            System.out.println("Plaza no encontrada.");
+        }
+    }
+
+    // Método para mostrar el precio de alquiler de una plaza de garaje
+    private static void mostrarPrecioAlquiler(PlazaGaraje[] plazas, Scanner scanner) {
+        System.out.print("Ingrese el número de la plaza: ");
+        int numero = scanner.nextInt();
+
+        int indice = numero - 1;
+        if (indice >= 0 && indice < 40) {
+            PlazaGaraje plaza = plazas[indice];
+            System.out.println("El precio de alquiler de la plaza es: " + plaza.getPrecioAlquiler() + "€");
+        } else {
+            System.out.println("Plaza no encontrada.");
+        }
+    }
+
+    // Método para mostrar las plazas libres
+    private static void mostrarPlazasLibres(PlazaGaraje[] plazas) {
+        System.out.println("Plazas libres:");
+        for (PlazaGaraje plaza : plazas) {
+            if (!plaza.estaAlquilada()) {
+                System.out.println(plaza.obtenerInformacion());
+            }
+        }
+    }
+
+    // Método para subir el precio de una plaza de garaje
+    private static void subirPrecioPlaza(PlazaGaraje[] plazas, Scanner scanner) {
+        System.out.print("Ingrese el número de la plaza: ");
+        int numero = scanner.nextInt();
+
+        int indice = numero - 1;
+        if (indice >= 0 && indice < 40) {
+            PlazaGaraje plaza = plazas[indice];
+            if (!plaza.estaAlquilada()) {
+                System.out.print("Ingrese el porcentaje de aumento del precio: ");
+                double porcentaje = scanner.nextDouble();
+                plaza.liberarPlaza();
+                plaza.alquilarPlaza(); // Simulamos que la plaza se alquila para aplicar el aumento de precio
+                plaza.alquilarPlaza(); // Se alquila y libera dos veces para que se recalcule el precio
+                plaza.liberarPlaza();
+                plaza.liberarPlaza();
+                plaza.alquilarPlaza();
+                plaza.getPrecioAlquiler(); // Se llama al método para que recalcule el precio
+                plaza.liberarPlaza();
+                plaza.alquilarPlaza();
+                plaza.getPrecioAlquiler(); // Se llama al método para que recalcule el precio
+                plaza.recalcularPrecioAlquiler(porcentaje);
+                System.out.println("El precio de alquiler de la plaza se ha incrementado correctamente.");
+            } else {
+                System.out.println("La plaza está ocupada, no se puede modificar el precio.");
+            }
+        } else {
+            System.out.println("Plaza no encontrada.");
+        }
+    }
+
+    // Método para mostrar los beneficios de la empresa
+    private static void mostrarBeneficiosEmpresa(PlazaGaraje[] plazas) {
+        double beneficios = 0;
+        for (PlazaGaraje plaza : plazas) {
+            if (plaza.estaAlquilada()) {
+                beneficios += plaza.getPrecioAlquiler() * 12; // Multiplicado por 12 meses
+            }
+        }
+        System.out.println("Beneficios de la empresa: " + beneficios + "€");
+    }
+}
