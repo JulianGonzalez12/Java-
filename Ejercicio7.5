@@ -1,0 +1,43 @@
+package ejercicio7.pkg5;
+
+/**
+ *
+ * @author Julian Gonzalez Medina 20232216752
+ */
+class Semáforo {
+    private String color;
+
+    // Constructor
+    public Semáforo() {
+        this.color = "rojo"; // El color inicial es rojo
+    }
+
+    // Método para cambiar el color del semáforo
+    public void cambio() {
+        // Cambiar el color entre verde, amarillo y rojo en ese orden
+        color = switch (color) {
+            case "rojo" -> "verde";
+            case "verde" -> "amarillo";
+            default -> "rojo";
+        };
+        System.out.println("Nuevo color del semáforo: " + color);
+    }
+
+    // Método para obtener el color actual del semáforo
+    public String obtenerColor() {
+        return color;
+    }
+}
+
+public class ejercicio7 {
+    public static void main(String[] args) {
+        // Crear un objeto de Semáforo
+        Semáforo semáforo = new Semáforo();
+
+        // Prueba del método cambio() varias veces
+        semáforo.cambio();
+        semáforo.cambio();
+        semáforo.cambio();
+        semáforo.cambio();
+    }
+}
